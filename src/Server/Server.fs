@@ -29,6 +29,9 @@ storage.AddTodo(Todo.create "Write your app")
 storage.AddTodo(Todo.create "Ship it !!!")
 |> ignore
 
+storage.AddTodo(Todo.create "Oma viesti default")
+|> ignore
+
 let todosApi =
     { getTodos = fun () -> async { return storage.GetTodos() }
       addTodo =
