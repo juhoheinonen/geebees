@@ -25,16 +25,37 @@ type Storage() =
 
 let storage = Storage()
 
-storage.AddTodo(Todo.create "You're doing great, keep going!")
+storage.AddTodo(Todo.create "Tough times never last, but tough people do.")
 |> ignore
 
-storage.AddTodo(Todo.create "Write your app")
+storage.AddTodo(Todo.create "In the depth of winter, I finally learned that within me there lay an invincible summer.")
 |> ignore
 
-storage.AddTodo(Todo.create "Ship it !!!")
+storage.AddTodo(Todo.create "Although no one can go back and make a brand new start, anyone can start from now and make a brand new ending.")
 |> ignore
 
-storage.AddTodo(Todo.create "Oma viesti default")
+storage.AddTodo(Todo.create "Anyone can hide. Facing up to things, working through them, that’s what makes you strong.")
+|> ignore
+
+storage.AddTodo(Todo.create "If one dream should fall and break into a thousand pieces, never be afraid to pick one of those pieces up and begin again.")
+|> ignore
+
+storage.AddTodo(Todo.create "When you’re feeling your worst, that’s when you get to know yourself the best.")
+|> ignore
+
+storage.AddTodo(Todo.create "In the middle of every difficulty lies opportunity.")
+|> ignore
+
+storage.AddTodo(Todo.create "Fall seven times, stand up eight.")
+|> ignore
+
+storage.AddTodo(Todo.create "Success is not final, failure is not fatal: it is the courage to continue that counts.")
+|> ignore
+
+storage.AddTodo(Todo.create "Failure is simply the opportunity to begin again, this time more intelligently.")
+|> ignore
+
+storage.AddTodo(Todo.create "Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better.")
 |> ignore
 
 let todosApi =

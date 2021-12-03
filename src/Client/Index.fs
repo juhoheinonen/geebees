@@ -45,26 +45,12 @@ let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
 open Feliz
 open Feliz.Bulma
 
-let navBrand =
-    Bulma.navbarBrand.div [
-        Bulma.navbarItem.a [
-            prop.href "https://safe-stack.github.io/"
-            navbarItem.isActive
-            prop.children [
-                Html.img [
-                    prop.src "/favicon.png"
-                    prop.alt "Logo"
-                ]
-            ]
-        ]
-    ]
-
 let containerBox (model: Model) (dispatch: Msg -> unit) =
     Bulma.box [
         Bulma.content [
-            Html.ol [
+            Html.ul [
                 //for todo in model.Todos do
-                    Html.li [ prop.text model.Todos.Value.Description ]
+                    Html.h1 [ prop.text model.Todos.Value.Description ]
             ]
         ]
         //Bulma.field.div [
@@ -104,7 +90,7 @@ let view (model: Model) (dispatch: Msg -> unit) =
         prop.children [
             Bulma.heroHead [
                 Bulma.navbar [
-                    Bulma.container [ navBrand ]
+                    
                 ]
             ]
             Bulma.heroBody [
@@ -115,7 +101,7 @@ let view (model: Model) (dispatch: Msg -> unit) =
                         prop.children [
                             Bulma.title [
                                 text.hasTextCentered
-                                prop.text "geebees"
+                                prop.text "Uplifty"
                             ]
                             containerBox model dispatch
                         ]
