@@ -48,10 +48,9 @@ open Feliz.Bulma
 let containerBox (model: Model) (dispatch: Msg -> unit) =
     Bulma.box [
         Bulma.content [
-            Html.ul [
-                //for todo in model.Todos do
-                    Html.h1 [ prop.text model.Todos.Value.Description ]
-            ]
+            Html.p [
+            Html.cite [ prop.text model.Todos.Value.Description ]
+            Html.p [ prop.text model.Todos.Value.Author ]]   
         ]
         //Bulma.field.div [
         //    field.isGrouped
