@@ -9,7 +9,13 @@ open Shared
 type Storage() =
     let todos = ResizeArray<_>()
 
-    member __.GetTodos() = List.ofSeq todos |> List.tryHead
+    let getTodoItem todoCollection =
+        let getrandomitem () =  
+          let rnd = System.Random()  
+          fun (combos : Todo list) -> List.nth combos (rnd.Next(combos.Length))
+        getrandomitem
+
+    member __.GetTodos() = List.ofSeq todos |> getTodoItem
 
     member __.AddTodo(todo: Todo) =
         if Todo.isValid todo.Description then
@@ -20,7 +26,7 @@ type Storage() =
 
 let storage = Storage()
 
-storage.AddTodo(Todo.create "Create new SAFE project")
+storage.AddTodo(Todo.create "You're doing great, keep going!")
 |> ignore
 
 storage.AddTodo(Todo.create "Write your app")
