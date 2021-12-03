@@ -9,7 +9,7 @@ open Shared
 type Storage() =
     let todos = ResizeArray<_>()
 
-    member __.GetTodos() = List.ofSeq todos
+    member __.GetTodos() = List.ofSeq todos |> List.tryHead
 
     member __.AddTodo(todo: Todo) =
         if Todo.isValid todo.Description then

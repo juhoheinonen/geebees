@@ -3,11 +3,12 @@ module Index
 open Elmish
 open Fable.Remoting.Client
 open Shared
+open System
 
-type Model = { Todos: Todo list; Input: string }
+type Model = { Todos: Todo option; Input: string }
 
 type Msg =
-    | GotTodos of Todo list
+    | GotTodos of Todo option
     //| SetInput of string
     //| AddTodo
     //| AddedTodo of Todo
@@ -18,7 +19,7 @@ let todosApi =
     |> Remoting.buildProxy<ITodosApi>
 
 let init () : Model * Cmd<Msg> =
-    let model = { Todos = []; Input = "" }
+    let model = { Todos = Some {Description = ""; Id = Guid.NewGuid() }; Input = "" }
 
     let cmd =
         Cmd.OfAsync.perform todosApi.getTodos () GotTodos
@@ -62,8 +63,8 @@ let containerBox (model: Model) (dispatch: Msg -> unit) =
     Bulma.box [
         Bulma.content [
             Html.ol [
-                for todo in model.Todos do
-                    Html.li [ prop.text todo.Description ]
+                //for todo in model.Todos do
+                    Html.li [ prop.text model.Todos.Value.Description ]
             ]
         ]
         //Bulma.field.div [
