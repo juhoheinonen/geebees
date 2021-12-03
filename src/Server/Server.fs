@@ -322,6 +322,8 @@ storage.AddTodo(Todo.create ("To laugh often and much; to win the respect of int
 |> ignore
 storage.AddTodo(Todo.create ("In life it’s usually wise to trust that everything’s going well, even when that’s not what you really believe. All too often threats have started to actually materialise namely because people have been preparing to deal with them.", "Mauno Koivisto"))
 |> ignore
+storage.AddTodo(Todo.create ("I never lose. I either win or learn.", "Nelson Mandela"))
+|> ignore
 
 let todosApi =
     { getTodos = fun () -> async { return storage.GetTodos() }
