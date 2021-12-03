@@ -320,6 +320,8 @@ storage.AddTodo(Todo.create ("Twenty years from now you will be more disappointe
 |> ignore
 storage.AddTodo(Todo.create ("To laugh often and much; to win the respect of intelligent people and the affection of children… to leave the world a better place… to know even one life has breathed easier because you have lived. This is to have succeeded.", "Ralph Waldo Emerson"))
 |> ignore
+storage.AddTodo(Todo.create ("In life it’s usually wise to trust that everything’s going well, even when that’s not what you really believe. All too often threats have started to actually materialise namely because people have been preparing to deal with them.", "Mauno Koivisto"))
+|> ignore
 
 let todosApi =
     { getTodos = fun () -> async { return storage.GetTodos() }
