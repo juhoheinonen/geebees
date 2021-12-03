@@ -324,6 +324,8 @@ storage.AddTodo(Todo.create ("In life it’s usually wise to trust that everythi
 |> ignore
 storage.AddTodo(Todo.create ("I never lose. I either win or learn.", "Nelson Mandela"))
 |> ignore
+storage.AddTodo(Todo.create ("Live as if you were to die tomorrow. Learn as if you were to live forever", "Mahatma Gandhi"))
+|> ignore
 
 let todosApi =
     { getTodos = fun () -> async { return storage.GetTodos() }
