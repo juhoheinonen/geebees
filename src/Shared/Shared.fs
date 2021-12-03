@@ -2,9 +2,9 @@ namespace Shared
 
 open System
 
-type Todo = { Id: Guid; Description: string; Author: string }
+type Encouragement = { Id: Guid; Description: string; Author: string }
 
-module Todo =
+module Encouragement =
     let isValid (description: string) =
         String.IsNullOrWhiteSpace description |> not
 
@@ -17,6 +17,6 @@ module Route =
     let builder typeName methodName =
         sprintf "/api/%s/%s" typeName methodName
 
-type ITodosApi =
-    { getTodos: unit -> Async<Todo option>
-      addTodo: Todo -> Async<Todo> }
+type IEncouragementsApi =
+    { getEncouragement: unit -> Async<Encouragement option>
+    }

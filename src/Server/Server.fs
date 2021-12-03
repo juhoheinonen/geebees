@@ -8,21 +8,21 @@ open Shared
 open System.IO
 
 type Storage() =
-    let todos = ResizeArray<_>()
+    let encouragements = ResizeArray<_>()
 
-    let getrandomitem (list:Todo List) =  
+    let getrandomitem (list:Encouragement List) =  
         let rand = new System.Random()
         let result = list.[rand.Next(list.Length)]
         Some result
 
-    member __.GetTodos() = List.ofSeq todos |> getrandomitem
+    member __.GetEncouragement() = List.ofSeq encouragements |> getrandomitem
 
-    member __.AddTodo(todo: Todo) =
-        if Todo.isValid todo.Description then
-            todos.Add todo
+    member __.AddEncouragement(encouragement: Encouragement) =
+        if Encouragement.isValid encouragement.Description then
+            encouragements.Add encouragement
             Ok()
         else
-            Error "Invalid todo"
+            Error "Invalid encouragement"
 
 let storage = Storage()
 
@@ -30,23 +30,17 @@ type Quotes = JsonProvider<"quotes.json">
 let quotes = Quotes.Parse(File.ReadAllText("quotes.json"))
 
 for quote in quotes do    
-    storage.AddTodo(Todo.create (quote.Description, quote.Author))
+    storage.AddEncouragement(Encouragement.create (quote.Description, quote.Author))
     |> ignore
 
-let todosApi =
-    { getTodos = fun () -> async { return storage.GetTodos() }
-      addTodo =
-          fun todo ->
-              async {
-                  match storage.AddTodo todo with
-                  | Ok () -> return todo
-                  | Error e -> return failwith e
-              } }
+let encouragementsApi =
+    { getEncouragement = fun () -> async { return storage.GetEncouragement() }
+    }
 
 let webApp =
     Remoting.createApi ()
     |> Remoting.withRouteBuilder Route.builder
-    |> Remoting.fromValue todosApi
+    |> Remoting.fromValue encouragementsApi
     |> Remoting.buildHttpHandler
 
 let app =

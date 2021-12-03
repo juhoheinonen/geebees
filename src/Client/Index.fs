@@ -5,42 +5,27 @@ open Fable.Remoting.Client
 open Shared
 open System
 
-type Model = { Todos: Todo option; Input: string }
+type Model = { Encouragement: Encouragement option }
 
 type Msg =
-    | GotTodos of Todo option
-    //| SetInput of string
-    //| AddTodo
-    //| AddedTodo of Todo
+    | GotEncouragement of Encouragement option
 
-let todosApi =
+let encouragementsApi =
     Remoting.createApi ()
     |> Remoting.withRouteBuilder Route.builder
-    |> Remoting.buildProxy<ITodosApi>
+    |> Remoting.buildProxy<IEncouragementsApi>
 
 let init () : Model * Cmd<Msg> =
-    let model = { Todos = Some {Description = ""; Id = Guid.NewGuid(); Author = "" }; Input = "" }
+    let model = { Encouragement = Some {Description = ""; Id = Guid.NewGuid(); Author = "" } }
 
     let cmd =
-        Cmd.OfAsync.perform todosApi.getTodos () GotTodos
+        Cmd.OfAsync.perform encouragementsApi.getEncouragement () GotEncouragement
 
     model, cmd
 
 let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
     match msg with
-    | GotTodos todos -> { model with Todos = todos }, Cmd.none
-    //| SetInput value -> { model with Input = value }, Cmd.none
-    //| AddTodo ->
-    //    let todo = Todo.create model.Input
-
-    //    let cmd =
-    //        Cmd.OfAsync.perform todosApi.addTodo todo AddedTodo
-
-    //    { model with Input = "" }, cmd
-    //| AddedTodo todo ->
-    //    { model with
-    //          Todos = model.Todos @ [ todo ] },
-    //    Cmd.none
+    | GotEncouragement encouragement -> { model with Encouragement = encouragement }, Cmd.none
 
 open Feliz
 open Feliz.Bulma
@@ -48,32 +33,9 @@ open Feliz.Bulma
 let containerBox (model: Model) (dispatch: Msg -> unit) =
     Bulma.box [
         Bulma.content [
-            Html.strong [prop.text model.Todos.Value.Description]
-            Html.p [prop.text model.Todos.Value.Author]
+            Html.strong [prop.text model.Encouragement.Value.Description]
+            Html.p [prop.text model.Encouragement.Value.Author]
         ]
-        //Bulma.field.div [
-        //    field.isGrouped
-        //    prop.children [
-        //        Bulma.control.p [
-        //            control.isExpanded
-        //            prop.children [
-        //                Bulma.input.text [
-        //                    prop.value model.Input
-        //                    prop.placeholder "What needs to be done?"
-        //                    prop.onChange (fun x -> SetInput x |> dispatch)
-        //                ]
-        //            ]
-        //        ]
-        //        Bulma.control.p [
-        //            Bulma.button.a [
-        //                color.isPrimary
-        //                prop.disabled (Todo.isValid model.Input |> not)
-        //                prop.onClick (fun _ -> dispatch AddTodo)
-        //                prop.text "Add"
-        //            ]
-        //        ]
-        //    ]
-        //]
     ]
 
 let view (model: Model) (dispatch: Msg -> unit) =
