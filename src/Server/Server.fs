@@ -9,13 +9,12 @@ open Shared
 type Storage() =
     let todos = ResizeArray<_>()
 
-    let getTodoItem todoCollection =
-        let getrandomitem () =  
-          let rnd = System.Random()  
-          fun (combos : Todo list) -> List.nth combos (rnd.Next(combos.Length))
-        getrandomitem
+    let getrandomitem (list:Todo List) =  
+        let rand = new System.Random()
+        let result = list.[rand.Next(list.Length)]
+        Some result
 
-    member __.GetTodos() = List.ofSeq todos |> getTodoItem
+    member __.GetTodos() = List.ofSeq todos |> getrandomitem
 
     member __.AddTodo(todo: Todo) =
         if Todo.isValid todo.Description then
